@@ -25,10 +25,18 @@ class TestGame(TestCase):
 
     def test_return_solve_result_if_matched_number(self):
         self.game.question = "123"
-        result : GameResult = self.game.guess("123")
+        result: GameResult = self.game.guess("123")
 
         self.assertIsNotNone(result)
         self.assertTrue(result.get_solved())
         self.assertEqual(3, result.get_strikes())
         self.assertEqual(0, result.get_balls())
 
+    def test_return_solve_result_if_unmatched_number(self):
+        self.game.question = "123"
+        result: GameResult = self.game.guess("456")
+
+        self.assertIsNotNone(result)
+        self.assertFalse(result.get_solved())
+        self.assertEqual(0, result.get_strikes())
+        self.assertEqual(0, result.get_balls())
